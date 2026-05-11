@@ -33,3 +33,4 @@ import * as Plot from "https://esm.sh/@observablehq/plot@0.6.17?bundle";
 - The Observable HTML title should be allowed to wrap; a forced one-line title clips inside medium-width iframes.
 - The website version works better as a ranked horizontal bar chart than as the original small-multiple replica. It fits the prose layout, reduces visual clutter, and makes Spain's rank immediately obvious.
 - Chart HTML should use the website font stack (`Styrene B` for chart text and `Tiempos Text` for the title) and transparent backgrounds so the embed inherits the site feel.
+- The ranked bar chart should retain the EU aggregate from the original reference. A dotted vertical line works better than adding the EU as a ranked bar, because it preserves the country ranking while giving readers a bloc-level baseline.

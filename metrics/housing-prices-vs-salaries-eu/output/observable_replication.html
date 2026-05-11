@@ -148,7 +148,7 @@
 <body>
   <main>
     <h1>Vivienda contra salarios</h1>
-    <p class="subtitle">Incremento del precio de la vivienda ajustado al crecimiento de los salarios, 2015-2024. Valores positivos indican que la vivienda se encareció más rápido que los salarios.</p>
+    <p class="subtitle">Incremento del precio de la vivienda ajustado al crecimiento de los salarios, 2015-2024. Valores positivos indican que la vivienda se encareció más rápido que los salarios. La línea punteada marca la media de la UE.</p>
     <section id="chart" aria-label="Ranking de países por incremento ajustado"></section>
     <section class="sources">
       <div><strong>Fuentes:</strong> Eurostat, índice de precios de la vivienda y remuneración por empleado en cuentas nacionales, datos más recientes disponibles (2024)</div>
@@ -207,6 +207,17 @@
       ? "n/a"
       : value.toFixed(1).replace(".", ",");
 
+    const euRow = data
+      .filter(d => +d.year === 2024 && d.geo === "EU27_2020" && d.change_vs_2015_pct != null)
+      .map(d => ({
+        geo: d.geo,
+        country: labels[d.geo] ?? d.country ?? d.geo,
+        change: +d.change_vs_2015_pct,
+        adjusted: +d.house_price_adjusted_by_salary_index_2015_100,
+        hpi: +d.house_price_index_2015_100,
+        salaryIndex: +d.salary_index_2015_100
+      }))[0];
+
     const rows = data
       .filter(d => +d.year === 2024 && d.geo !== "EU27_2020" && d.change_vs_2015_pct != null)
       .map(d => ({
@@ -225,16 +236,20 @@
       chart.replaceChildren();
       const width = Math.max(320, chart.clientWidth || 900);
       const compact = width < 620;
-      const height = rows.length * (compact ? 29 : 33) + 56;
-      const xMin = Math.min(-70, Math.floor(Math.min(...rows.map(d => d.change)) / 10) * 10 - 10);
-      const xMax = Math.max(55, Math.ceil(Math.max(...rows.map(d => d.change)) / 10) * 10);
+      const marginLeft = compact ? 118 : 150;
+      const marginRight = compact ? 44 : 72;
+      const marginTop = compact ? 26 : 30;
+      const height = rows.length * (compact ? 29 : 33) + 76;
+      const changes = euRow ? rows.map(d => d.change).concat(euRow.change) : rows.map(d => d.change);
+      const xMin = Math.min(-70, Math.floor(Math.min(...changes) / 10) * 10 - 10);
+      const xMax = Math.max(55, Math.ceil(Math.max(...changes) / 10) * 10);
 
       const plot = Plot.plot({
         width,
         height,
-        marginLeft: compact ? 118 : 150,
-        marginRight: compact ? 44 : 72,
-        marginTop: 10,
+        marginLeft,
+        marginRight,
+        marginTop,
         marginBottom: 32,
         style: {
           background: "transparent",
@@ -259,6 +274,7 @@
         },
         marks: [
           Plot.ruleX([0], {stroke: "#9aa7b3", strokeWidth: 1}),
+          euRow ? Plot.ruleX([euRow.change], {stroke: "#7d8a96", strokeWidth: 1.25, strokeDasharray: "4,4"}) : null,
           Plot.barX(rows, {
             y: "country",
             x: "change",
@@ -275,10 +291,32 @@
         rect.setAttribute("rx", "5");
         rect.setAttribute("ry", "5");
       });
+      if (euRow) {
+        addEuAverageLabel(plot, euRow, xMin, xMax, width, marginLeft, marginRight, compact);
+      }
       addCountryLabels(plot, rows, compact);
       addValueLabels(plot, rows, compact);
 
       installTooltip(plot);
+    }
+
+    function addEuAverageLabel(plot, euRow, xMin, xMax, width, marginLeft, marginRight, compact) {
+      const svg = plot;
+      const ns = "http://www.w3.org/2000/svg";
+      const plotWidth = width - marginLeft - marginRight;
+      const x = marginLeft + ((euRow.change - xMin) / (xMax - xMin)) * plotWidth;
+      const label = document.createElementNS(ns, "text");
+
+      label.textContent = `UE ${fmtPct(euRow.change)}`;
+      label.setAttribute("x", String(x + 5));
+      label.setAttribute("y", compact ? "15" : "17");
+      label.setAttribute("text-anchor", "start");
+      label.setAttribute("fill", "#7d8a96");
+      label.setAttribute("font-weight", "700");
+      label.setAttribute("font-size", compact ? "10" : "11");
+      label.setAttribute("font-family", "Styrene B, ui-sans-serif, system-ui, sans-serif");
+      label.style.pointerEvents = "none";
+      svg.appendChild(label);
     }
 
     function addCountryLabels(plot, rows, compact) {
