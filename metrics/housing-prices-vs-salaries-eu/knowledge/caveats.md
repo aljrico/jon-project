@@ -2,8 +2,8 @@
 
 ## Missing Country Data
 
-- **Netherlands / Países Bajos**: Eurostat `nama_10_fte` does not publish the Netherlands. Keep the panel marked as missing unless a CBS fallback is intentionally added with an explicit comparability caveat.
-- **Greece / Grecia**: Greece currently lacks the required Eurostat HPI series under the selected `prc_hpi_a` filters.
+- **Netherlands**: Eurostat `nama_10_fte` does not publish the Netherlands. Keep the panel marked as missing unless a CBS fallback is intentionally added with an explicit comparability caveat.
+- **Greece**: Greece currently lacks the required Eurostat HPI series under the selected `prc_hpi_a` filters.
 
 ## Salary Units
 

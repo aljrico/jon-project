@@ -1,8 +1,8 @@
 # EU Housing Prices Adjusted By Salaries
 
-Replication of the small-multiple chart:
+Replication of the small-multiple chart concept:
 
-> Incremento del precio de la vivienda en la Unión Europea ajustado al crecimiento de los salarios 2015-2024
+> Change in European Union house prices after adjusting for salary growth, 2015-2024
 
 ## Data
 

@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Precio de la vivienda ajustado a salarios | Observable Plot</title>
+  <title>House prices adjusted for salary growth | Observable Plot</title>
   <style>
     @font-face {
       font-family: "Styrene B";
@@ -159,13 +159,13 @@
 </head>
 <body>
   <main>
-    <h1>Vivienda contra salarios</h1>
-    <p class="subtitle">Incremento del precio de la vivienda ajustado al crecimiento de los salarios, 2015-2024. Valores positivos indican que la vivienda se encareció más rápido que los salarios.</p>
-    <section id="chart" aria-label="Ranking de países por incremento ajustado"></section>
+    <h1>House Prices vs. Salaries</h1>
+    <p class="subtitle">Change in house prices after accounting for salary growth, 2015-2024. Positive values mean homes became more expensive relative to pay.</p>
+    <section id="chart" aria-label="Countries ranked by house-price growth after salary adjustment"></section>
     <section class="sources">
-      <div><strong>Fuentes:</strong> Eurostat, índice de precios de la vivienda y remuneración por empleado en cuentas nacionales, datos más recientes disponibles (2024)</div>
-      <div><strong>Nota:</strong> Elaboración propia a partir del House Price Index deflactado con el crecimiento de los salarios, con 2015 definido como el año base (índice = 100)</div>
-      <div class="missing-note">Sin datos suficientes para Grecia y Países Bajos bajo los filtros armonizados usados aquí.</div>
+      <div><strong>Sources:</strong> Eurostat House Price Index and average full-time adjusted salary per employee, latest common year available (2024).</div>
+      <div><strong>Method:</strong> House prices are indexed to 2015, divided by salary growth since 2015, then shown as the percentage above or below that salary-adjusted baseline.</div>
+      <div class="missing-note">Greece and the Netherlands are not shown because the required harmonised Eurostat series are incomplete under these filters.</div>
     </section>
   </main>
 
@@ -176,33 +176,33 @@
     const data = JSON.parse(document.getElementById("housing-data").textContent);
 
     const labels = {
-      EU27_2020: "Unión Europea",
-      BE: "Bélgica",
+      EU27_2020: "European Union",
+      BE: "Belgium",
       BG: "Bulgaria",
-      CZ: "R. Checa",
-      DK: "Dinamarca",
-      DE: "Alemania",
+      CZ: "Czechia",
+      DK: "Denmark",
+      DE: "Germany",
       EE: "Estonia",
-      IE: "Irlanda",
-      ES: "España",
-      FR: "Francia",
-      HR: "Croacia",
-      IT: "Italia",
-      CY: "Chipre",
-      LV: "Letonia",
-      LT: "Lituania",
-      LU: "Luxemburgo",
-      HU: "Hungría",
+      IE: "Ireland",
+      ES: "Spain",
+      FR: "France",
+      HR: "Croatia",
+      IT: "Italy",
+      CY: "Cyprus",
+      LV: "Latvia",
+      LT: "Lithuania",
+      LU: "Luxembourg",
+      HU: "Hungary",
       MT: "Malta",
-      NL: "Países Bajos",
+      NL: "Netherlands",
       AT: "Austria",
-      PL: "Polonia",
+      PL: "Poland",
       PT: "Portugal",
-      RO: "Rumanía",
-      SI: "Eslovenia",
-      SK: "Eslovaquia",
-      FI: "Finlandia",
-      SE: "Suecia"
+      RO: "Romania",
+      SI: "Slovenia",
+      SK: "Slovakia",
+      FI: "Finland",
+      SE: "Sweden"
     };
 
     const tooltip = document.createElement("div");
@@ -211,19 +211,19 @@
 
     const fmtPct = value => {
       if (value == null || Number.isNaN(value)) return "";
-      const formatted = Math.abs(value).toFixed(1).replace(".", ",");
+      const formatted = Math.abs(value).toFixed(1);
       return `${value >= 0 ? "+" : "-"}${formatted}%`;
     };
 
     const fmtIndex = value => value == null || Number.isNaN(value)
       ? "n/a"
-      : value.toFixed(1).replace(".", ",");
+      : value.toFixed(1);
 
     const euRow = data
       .filter(d => +d.year === 2024 && d.geo === "EU27_2020" && d.change_vs_2015_pct != null)
       .map(d => ({
         geo: d.geo,
-        country: "Unión Europea",
+        country: "European Union",
         change: +d.change_vs_2015_pct,
         adjusted: +d.house_price_adjusted_by_salary_index_2015_100,
         hpi: +d.house_price_index_2015_100,
@@ -278,7 +278,7 @@
           ticks: [-50, -25, 0, 25, 50],
           tickFormat: d => `${d}%`,
           grid: true,
-          label: "Incremento ajustado desde 2015",
+          label: "Salary-adjusted change since 2015",
           labelAnchor: "center",
           labelArrow: "none"
         },
@@ -456,10 +456,10 @@
         rect.addEventListener("mousemove", event => {
           tooltip.innerHTML = `
             <strong>${d.country}</strong>
-            <div class="row"><span>Cambio desde 2015</span><b>${fmtPct(d.change)}</b></div>
-            <div class="row"><span>Índice ajustado</span><b>${fmtIndex(d.adjusted)}</b></div>
-            <div class="row"><span>HPI vivienda</span><b>${fmtIndex(d.hpi)}</b></div>
-            <div class="row"><span>Índice salarios</span><b>${fmtIndex(d.salaryIndex)}</b></div>
+            <div class="row"><span>Relative to salaries</span><b>${fmtPct(d.change)}</b></div>
+            <div class="row"><span>House prices</span><b>${fmtPct(d.hpi - 100)}</b></div>
+            <div class="row"><span>Full-time salary</span><b>${fmtPct(d.salaryIndex - 100)}</b></div>
+            <div class="row"><span>Adjusted index</span><b>${fmtIndex(d.adjusted)}</b></div>
           `;
           tooltip.style.left = `${event.clientX + 14}px`;
           tooltip.style.top = `${event.clientY + 14}px`;
