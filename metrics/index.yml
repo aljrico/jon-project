@@ -1,0 +1,10 @@
+metrics:
+  - id: housing-prices-vs-salaries-eu
+    title: House Prices Adjusted By Salary Growth In The EU
+    status: draft
+    geography: European Union
+    period: 2015-2024
+    output:
+      html: output/observable_replication.html
+      png: output/eu_housing_salary_replication.png
+      data: data/housing_price_adjusted_by_salary_eu_2015_2024.csv

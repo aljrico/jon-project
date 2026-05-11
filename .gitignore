@@ -1,0 +1,13 @@
+.DS_Store
+.Rhistory
+.RData
+.Rproj.user/
+.env
+.env.*
+
+# Local visual QA captures are useful while iterating, but not part of the metric artifact set.
+metrics/*/output/*screenshot*.png
+metrics/*/output/*_screenshot.png
+metrics/*/output/astro_post_*.png
+metrics/*/output/barplot_*.png
+

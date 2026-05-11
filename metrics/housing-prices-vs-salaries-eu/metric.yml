@@ -1,0 +1,34 @@
+id: housing-prices-vs-salaries-eu
+title: House Prices Adjusted By Salary Growth In The EU
+short_title: Housing Prices Vs Salaries
+status: draft
+geography:
+  scope: European Union
+  countries: EU27 plus available member-state series
+period:
+  start: 2015
+  end: 2024
+metric:
+  formula: house_price_index_2015_100 / (salary_year / salary_2015)
+  displayed_change: adjusted_index - 100
+sources:
+  - name: Eurostat House price index annual data
+    dataset_id: prc_hpi_a
+    url: https://ec.europa.eu/eurostat/databrowser/view/prc_hpi_a/default/table?lang=en
+    filters:
+      purchase: TOTAL
+      unit: I15_A_AVG
+  - name: Eurostat Average full-time adjusted salary per employee
+    dataset_id: nama_10_fte
+    url: https://ec.europa.eu/eurostat/databrowser/view/nama_10_fte/default/table?lang=en
+    metadata_url: https://ec.europa.eu/eurostat/cache/metadata/en/nama_10_fte_esms.htm
+    filters:
+      unit: NAC
+known_caveats:
+  - Eurostat nama_10_fte excludes the Netherlands.
+  - Greece lacks the selected HPI series under current filters.
+  - Salary series must use national currency to avoid exchange-rate noise.
+outputs:
+  html: output/observable_replication.html
+  png: output/eu_housing_salary_replication.png
+  csv: data/housing_price_adjusted_by_salary_eu_2015_2024.csv
