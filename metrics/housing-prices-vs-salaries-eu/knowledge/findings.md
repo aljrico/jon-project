@@ -9,6 +9,7 @@ adjusted_index = house_price_index_2015_100 / (salary_year / salary_2015)
 change_pct = adjusted_index - 100
 ```
 
+- In prose, the displayed value is `HPI / salary growth index - 1`, expressed as a percentage point change from the 2015 baseline. This is why the chart's neutral point is 0%, even though the underlying ratio's neutral point is 1.0.
 - Spain validates the formula against the reference chart: HPI 2024 is `160.25`, salary rises from `27,175` to `33,700`, and `160.25 / (33700 / 27175) = 129.2`, i.e. `+29.2%`.
 
 ## Eurostat Sources
@@ -17,6 +18,7 @@ change_pct = adjusted_index - 100
 - Salaries use Eurostat `nama_10_fte`, filtered to `unit=NAC`.
 - `nama_10_fte` metadata says the indicator is available for all EU Member States except the Netherlands.
 - `nama_10_fte` metadata says Statistics Netherlands uses a different methodology based on exhaustive register information.
+- Eurostat news summaries can mention the Netherlands by pointing users to the metadata-linked CBS fallback. That does not mean the Netherlands exists in the harmonised `nama_10_fte` dataset under `unit=NAC`.
 - Availability check on 2026-05-11: `prc_hpi_a` has annual 2025 values for the selected geographies, but `nama_10_fte` stops at 2024. There are no 2026 values in either source under the selected filters. The latest valid end year for the combined adjusted metric remains 2024.
 
 ## Observable HTML

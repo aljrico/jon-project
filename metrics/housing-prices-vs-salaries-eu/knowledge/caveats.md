@@ -2,14 +2,26 @@
 
 ## Missing Country Data
 
-- **Netherlands**: Eurostat `nama_10_fte` does not publish the Netherlands. Keep the panel marked as missing unless a CBS fallback is intentionally added with an explicit comparability caveat.
+- **Netherlands**: Eurostat `nama_10_fte` does not publish the Netherlands. Eurostat news pages may point to a CBS fallback through the metadata, but that uses a different methodology. Keep the panel marked as missing unless that fallback is intentionally added with an explicit comparability caveat.
 - **Greece**: Greece currently lacks the required Eurostat HPI series under the selected `prc_hpi_a` filters.
+
+## Base Year
+
+- 2015 is close to the post-GFC housing trough for Spain, Portugal, and Ireland. That makes the 2015-2024 rebound look larger than it would from a longer-run base year.
+- The chart remains useful as a common Eurostat baseline, but the prose should acknowledge that part of the observed rise is mean reversion from a depressed housing market.
 
 ## Salary Units
 
 - Salary values should use `unit=NAC`, not `unit=EUR`, to avoid exchange-rate noise for non-euro countries.
 - Using `EUR` materially distorts countries outside the euro area, especially cases such as Hungary and Romania.
-- Romania's large negative adjusted change is formula-consistent, not a rendering error. The 2024 HPI is `155.89`, while the salary index is `335.01`, producing an adjusted index of `46.53` and a change of `-53.5%`. This should be explained carefully because it can look suspicious at first glance.
+- Romania's large negative adjusted change is formula-consistent, not a rendering error. The 2024 HPI is `155.89`, while the salary index is `335.01`, producing an adjusted index of `46.53` and a change of `-53.5%`. This should be explained as a high-inflation catch-up economy where nominal wages rose much faster than house prices, not as a simple affordability miracle.
+
+## Affordability Limits
+
+- The salary measure is an average full-time adjusted salary, not a median buyer income.
+- Mortgage affordability also depends on rates, deposits, taxes, credit standards, and household structure.
+- National HPI data hides regional dispersion. In Spain especially, Madrid, Barcelona, and the Balearics are not well represented by a single national number.
+- Nominal salary growth does not mean real purchasing power improved. Consumer inflation can erase wage gains while housing still pulls away.
 
 ## Source Mixing
 

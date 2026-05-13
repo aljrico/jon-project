@@ -164,8 +164,8 @@
     <section id="chart" aria-label="Countries ranked by house-price growth after salary adjustment"></section>
     <section class="sources">
       <div><strong>Sources:</strong> Eurostat House Price Index and average full-time adjusted salary per employee, latest common year available (2024).</div>
-      <div><strong>Method:</strong> House prices are indexed to 2015, divided by salary growth since 2015, then shown as the percentage above or below that salary-adjusted baseline.</div>
-      <div class="missing-note">Greece and the Netherlands are not shown because the required harmonised Eurostat series are incomplete under these filters.</div>
+      <div><strong>Method:</strong> House prices are indexed to 2015, divided by the salary growth index, then shown as <code>HPI / salary index - 1</code>. Spain, Portugal, and Ireland are measured from near post-crash troughs, so part of the rise is rebound.</div>
+      <div class="missing-note">Greece is missing because the required HPI series is incomplete. The Netherlands is missing because Eurostat excludes it from this harmonised salary series; CBS publishes a different-methodology fallback.</div>
     </section>
   </main>
 

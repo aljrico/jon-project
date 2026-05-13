@@ -18,7 +18,16 @@ house_price_adjusted_by_salary = house_price_index_2015_100 / (salary_year / sal
 change_vs_2015_pct = house_price_adjusted_by_salary - 100
 ```
 
+Equivalently, the displayed value is `HPI / salary growth index - 1`, expressed as a percentage point change from the 2015 baseline. The neutral point is 0% because the ratio is shown after subtracting the 2015 baseline.
+
 Use national currency (`NAC`) for salaries. Using euros introduces exchange-rate noise for non-euro countries.
+
+## Caveats
+
+- 2015 is close to the post-GFC housing trough for Spain, Portugal, and Ireland. This inflates the apparent gap versus a longer-run base year because part of the move is rebound from a depressed market.
+- The salary measure is an average full-time adjusted salary, not a median buyer income.
+- This is a price-to-pay proxy, not a mortgage affordability index. It does not include interest rates, taxes, deposits, rents, household structure, or regional dispersion.
+- National results hide huge local variation. Spain is the obvious example: Madrid, Barcelona, and the Balearics are not inland Spain.
 
 ## Run
 

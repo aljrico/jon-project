@@ -25,9 +25,12 @@ sources:
     filters:
       unit: NAC
 known_caveats:
-  - Eurostat nama_10_fte excludes the Netherlands.
+  - Eurostat nama_10_fte excludes the Netherlands; CBS has a different-methodology fallback.
   - Greece lacks the selected HPI series under current filters.
+  - 2015 is close to the post-GFC housing trough for Spain, Portugal, and Ireland.
   - Salary series must use national currency to avoid exchange-rate noise.
+  - The salary measure is an average, not a median buyer income.
+  - This is not a mortgage affordability index.
 outputs:
   html: output/observable_replication.html
   png: output/eu_housing_salary_replication.png
