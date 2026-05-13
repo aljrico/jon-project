@@ -205,7 +205,7 @@ html <- paste0(
   <main>
     <p class="metric-subtitle">House prices vs. salaries, % above 2015 ratio</p>
     <div id="history-root"></div>
-    <p class="method-note"><strong>Contribution screen:</strong> country change from 2022 to 2024 multiplied by its 2024 EU27 HPI country weight from Eurostat <code>prc_hpi_cow</code>, converting per-mille weights to shares. This ranks countries by HPI-weighted pressure on the salary-adjusted gap; it is not a full decomposition of the EU salary denominator.</p>
+    <p class="method-note" id="method-note"><strong>Contribution screen:</strong> country change from 2022 to 2024 multiplied by its 2024 EU27 HPI country weight from Eurostat <code>prc_hpi_cow</code>, converting per-mille weights to shares. This ranks countries by HPI-weighted pressure on the salary-adjusted gap; it is not a full decomposition of the EU salary denominator.</p>
   </main>
 
   <script id="history-data" type="application/json">', history_json, '</script>
@@ -249,8 +249,9 @@ html <- paste0(
         }));
     }
 
-    const groups = [
+    const allGroups = [
       {
+        id: "spain-eu",
         heading: "Spain vs. the EU",
         note: "Spain keeps rising after 2022. The EU aggregate gives back much of the gap.",
         columns: "two",
@@ -260,18 +261,26 @@ html <- paste0(
         ]
       },
       {
+        id: "closed",
+        isContribution: true,
         heading: "Where the EU gap closed",
         note: "Top 6 by HPI-weighted 2022-2024 contribution, ordered by 2024 EU27 HPI weight.",
         columns: "three",
         entries: contributionEntries("largest_hpi_weighted_closers", () => colors.blue)
       },
       {
+        id: "widening",
+        isContribution: true,
         heading: "Where it kept widening",
         note: "Top 6 by the same screen, ordered by 2024 EU27 HPI weight.",
         columns: "three",
         entries: contributionEntries("largest_hpi_weighted_wideners", geo => geo === "ES" ? colors.red : colors.blue)
       }
     ];
+    const view = new URLSearchParams(window.location.search).get("view");
+    const groups = view ? allGroups.filter(group => group.id === view) : allGroups;
+    const methodNote = document.getElementById("method-note");
+    methodNote.hidden = !groups.some(group => group.isContribution);
 
     function getTheme() {
       const styles = getComputedStyle(document.documentElement);
@@ -338,7 +347,7 @@ html <- paste0(
           const weightedNote = document.createElement("p");
           weightedNote.className = "weighted-note";
           const contribution = entry.contribution ?? selectedContribution(entry.geo);
-          if (contribution && groupIndex > 0) {
+          if (contribution && group.isContribution) {
             weightedNote.textContent = `weighted 2022-24 move ${fmtSigned(+contribution.hpi_weighted_delta_pct_points)}`;
           }
 
