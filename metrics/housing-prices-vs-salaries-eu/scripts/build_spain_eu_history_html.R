@@ -269,7 +269,7 @@ html <- paste0(
         heading: "Where it kept widening",
         note: "Top 3 by the same HPI-weighted screen.",
         columns: "three",
-        entries: contributionEntries("largest_hpi_weighted_wideners", "eu_widening_rank", geo => geo === "ES" ? colors.red : colors.grey)
+        entries: contributionEntries("largest_hpi_weighted_wideners", "eu_widening_rank", geo => geo === "ES" ? colors.red : colors.blue)
       }
     ];
 
