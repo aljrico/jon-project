@@ -43,6 +43,8 @@ hpi_weighted_delta = (adjusted_change_2024 - adjusted_change_2022) * (hpi_weight
 - Germany dominates the closing side: its adjusted gap fell from `+37.4%` in 2022 to `+10.0%` in 2024, and its 2024 EU27 HPI weight is `211.92` per mille.
 - The exact Germany calculation is `(9.973044 - 37.434825) * (211.92 / 1000) = -5.81970063` percentage points.
 - The exact Spain calculation is `(29.222366 - 25.245293) * (98.21 / 1000) = +0.39058834` percentage points.
+- Spain accounts for about 92% of positive HPI-weighted pressure in the 2022-2024 screen. The other positive countries in the reproducible output add only about `+0.03` percentage points combined.
+- Spain matters because its salary-adjusted gap widened and its 2024 EU27 HPI weight is large. Smaller countries such as Cyprus and Malta also worsened, but their HPI weights are too small to move the screen.
 
 ## Observable HTML
 

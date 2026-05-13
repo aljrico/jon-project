@@ -182,7 +182,7 @@ html <- paste0(
       margin: 16px 0 0;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 520px) {
       .history-grid.two,
       .history-grid.three {
         grid-template-columns: 1fr;
@@ -365,8 +365,8 @@ html <- paste0(
       const rows = data
         .filter(d => d.geo === entry.geo)
         .sort((a, b) => a.year - b.year);
-      const width = Math.max(220, entry.element.clientWidth || 320);
-      const compact = width < 280;
+      const width = Math.max(160, entry.element.clientWidth || 320);
+      const compact = width < 260;
       const groupRows = group.entries.flatMap(item => data.filter(d => d.geo === item.geo));
       const yMax = Math.ceil(Math.max(30, ...groupRows.map(d => d.change)) / 5) * 5;
       const final = rows[rows.length - 1];
@@ -377,7 +377,7 @@ html <- paste0(
       entry.element.replaceChildren();
       const plot = Plot.plot({
         width,
-        height: compact ? 176 : 204,
+        height: compact ? 168 : 204,
         marginTop: 8,
         marginRight: 16,
         marginBottom: 28,
