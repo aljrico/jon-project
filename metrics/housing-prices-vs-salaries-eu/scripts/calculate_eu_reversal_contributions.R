@@ -130,8 +130,8 @@ contributions <- metric |>
       NA_integer_
     ),
     contribution_group = case_when(
-      !is.na(eu_closing_rank) & eu_closing_rank <= 3 ~ "largest_hpi_weighted_closers",
-      !is.na(eu_widening_rank) & eu_widening_rank <= 3 ~ "largest_hpi_weighted_wideners",
+      !is.na(eu_closing_rank) & eu_closing_rank <= 6 ~ "largest_hpi_weighted_closers",
+      !is.na(eu_widening_rank) & eu_widening_rank <= 6 ~ "largest_hpi_weighted_wideners",
       TRUE ~ NA_character_
     )
   ) |>

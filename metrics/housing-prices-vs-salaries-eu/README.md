@@ -82,4 +82,4 @@ The generated contribution CSV has these columns:
 | `hpi_weighted_delta_pct_points` | `delta_2022_2024_pct_points * hpi_weight_2024_share` |
 | `eu_closing_rank` | Rank among countries pulling the HPI-weighted screen down |
 | `eu_widening_rank` | Rank among countries pushing the HPI-weighted screen up |
-| `contribution_group` | Selected plot group for the top three closers or wideners |
+| `contribution_group` | Selected plot group for the top six closers or wideners |

@@ -237,10 +237,10 @@ html <- paste0(
       return contributions.find(d => d.geo === geo);
     }
 
-    function contributionEntries(group, rankField, colorForGeo) {
+    function contributionEntries(group, colorForGeo) {
       return contributions
         .filter(d => d.contribution_group === group)
-        .sort((a, b) => a[rankField] - b[rankField])
+        .sort((a, b) => b.hpi_weight_2024_share - a.hpi_weight_2024_share)
         .map(d => ({
           geo: d.geo,
           title: d.country,
@@ -261,15 +261,15 @@ html <- paste0(
       },
       {
         heading: "Where the EU gap closed",
-        note: "Top 3 by 2024 EU27 HPI weight x 2022-2024 change in the salary-adjusted gap.",
+        note: "Top 6 by HPI-weighted 2022-2024 contribution, ordered by 2024 EU27 HPI weight.",
         columns: "three",
-        entries: contributionEntries("largest_hpi_weighted_closers", "eu_closing_rank", () => colors.blue)
+        entries: contributionEntries("largest_hpi_weighted_closers", () => colors.blue)
       },
       {
         heading: "Where it kept widening",
-        note: "Top 3 by the same HPI-weighted screen.",
+        note: "Top 6 by the same screen, ordered by 2024 EU27 HPI weight.",
         columns: "three",
-        entries: contributionEntries("largest_hpi_weighted_wideners", "eu_widening_rank", geo => geo === "ES" ? colors.red : colors.blue)
+        entries: contributionEntries("largest_hpi_weighted_wideners", geo => geo === "ES" ? colors.red : colors.blue)
       }
     ];
 
@@ -368,7 +368,10 @@ html <- paste0(
       const width = Math.max(160, entry.element.clientWidth || 320);
       const compact = width < 260;
       const groupRows = group.entries.flatMap(item => data.filter(d => d.geo === item.geo));
+      const yMin = Math.min(0, Math.floor(Math.min(...groupRows.map(d => d.change)) / 10) * 10);
       const yMax = Math.ceil(Math.max(30, ...groupRows.map(d => d.change)) / 5) * 5;
+      const yTicks = [];
+      for (let tick = yMin; tick <= yMax; tick += 10) yTicks.push(tick);
       const final = rows[rows.length - 1];
 
       entry.finalElement.textContent = fmtPct(final.change);
@@ -397,8 +400,8 @@ html <- paste0(
           grid: false
         },
         y: {
-          domain: [Math.min(0, Math.floor(Math.min(...groupRows.map(d => d.change)) / 10) * 10), yMax],
-          ticks: [0, 10, 20, 30, 40, 50].filter(d => d <= yMax),
+          domain: [yMin, yMax],
+          ticks: yTicks,
           tickFormat: d => `${d}%`,
           label: null,
           grid: true

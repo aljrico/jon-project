@@ -23,6 +23,13 @@ change_pct = adjusted_index - 100
 - EU reversal contribution screening uses Eurostat `prc_hpi_cow`, filtered to `purchase=TOTAL`, `statinfo=COWEU27_2020`, `time=2024`, and `unit=PM`.
   - Data: <https://ec.europa.eu/eurostat/databrowser/view/prc_hpi_cow/default/table>
   - Metadata: <https://ec.europa.eu/eurostat/cache/metadata/en/prc_hpi_inx_esms.htm>
+- Portugal housing-market context uses Banco de Portugal and OECD synthesis:
+  - Banco de Portugal Financial Stability Report, November 2024: <https://www.bportugal.pt/en/publicacao/financial-stability-report-november-2024>
+  - Banco de Portugal Financial Stability Report, May 2024: <https://www.bportugal.pt/en/publicacao/financial-stability-report-may-2024>
+  - OECD Economic Surveys: Portugal 2026, housing affordability chapter: <https://www.oecd.org/en/publications/oecd-economic-surveys-portugal-2026_025b3445-en/full-report/tackling-portugal-s-housing-affordability-challenge-promoting-sustainable-and-inclusive-housing_c920df36.html>
+- EU housing reversal context uses European Commission housing notes:
+  - Spring 2025 forecast special topic: <https://economy-finance.ec.europa.eu/economic-forecast-and-surveys/economic-forecasts/spring-2025-economic-forecast-moderate-growth-amid-global-economic-uncertainty/signals-turnaround-housing-market_en>
+  - Autumn 2023 special topic PDF: <https://ec.europa.eu/economy_finance/forecasts/2023/autumn/cooling_housing_market_amid_mortgage_rate_increases_en.pdf>
 - `nama_10_fte` metadata says the indicator is available for all EU Member States except the Netherlands.
 - `nama_10_fte` metadata says Statistics Netherlands uses a different methodology based on exhaustive register information.
 - Eurostat news summaries can mention the Netherlands by pointing users to the metadata-linked CBS fallback. That does not mean the Netherlands exists in the harmonised `nama_10_fte` dataset under `unit=NAC`.
@@ -38,13 +45,18 @@ hpi_weighted_delta = (adjusted_change_2024 - adjusted_change_2022) * (hpi_weight
 
 - The method uses `prc_hpi_cow` because Eurostat says EU HPI aggregates are calculated from national HPIs using country weights, and `prc_hpi_cow` publishes those weights in per-mille units.
 - This is a numerator-weighted contribution screen, not a full decomposition of the EU adjusted ratio. The salary denominator comes from `nama_10_fte`, which Eurostat derives from national accounts wages and salaries, employee counts, and Labour Force Survey full-time adjustment ratios.
-- Under this screen, the largest HPI-weighted 2022-2024 closing countries are Germany, France, and Austria.
-- The largest HPI-weighted widening countries are Spain, Portugal, and Cyprus.
+- Under this screen, the largest six HPI-weighted 2022-2024 closing countries are Germany, France, Austria, Romania, Sweden, and Czechia.
+- The largest six HPI-weighted widening countries are Spain, Portugal, Cyprus, Croatia, Malta, and Lithuania.
+- The small multiples display each six-country group ordered by 2024 EU27 HPI weight, not by contribution rank.
 - Germany dominates the closing side: its adjusted gap fell from `+37.4%` in 2022 to `+10.0%` in 2024, and its 2024 EU27 HPI weight is `211.92` per mille.
 - The exact Germany calculation is `(9.973044 - 37.434825) * (211.92 / 1000) = -5.81970063` percentage points.
 - The exact Spain calculation is `(29.222366 - 25.245293) * (98.21 / 1000) = +0.39058834` percentage points.
 - Spain accounts for about 92% of positive HPI-weighted pressure in the 2022-2024 screen. The other positive countries in the reproducible output add only about `+0.03` percentage points combined.
 - Spain matters because its salary-adjusted gap widened and its 2024 EU27 HPI weight is large. Smaller countries such as Cyprus and Malta also worsened, but their HPI weights are too small to move the screen.
+- Portugal is the level outlier: by 2021 its HPI had risen to `168.84` while the salary index was `120.06`, producing a salary-adjusted gap of `+40.63%`.
+- Portugal barely worsened after 2022 in this metric because HPI rose `18.0%` from 2022 to 2024 while the salary index rose `17.4%`. Spain worsened because HPI rose `12.9%` while the salary index rose `9.4%`.
+- Banco de Portugal attributes Portugal's housing pressure to a weak supply response after the financial crisis, demand from residents and non-residents, tourism, Golden Visa effects, non-habitual resident tax benefits, and limited market stock. The November 2024 Financial Stability Report says Portugal built less than half as many dwellings from 2015-2023 as in the preceding eight years and licensed only `17` dwellings per thousand inhabitants from 2013-2022, versus `60` in France and `34` in Germany.
+- The EU reversal around 2021-2022 is consistent with the European Commission's housing-market analysis: nominal euro-area house prices peaked in mid-2022, mortgage-rate increases reduced borrowing capacity, credit flows contracted, and the drop was led by large markets such as Germany and the Netherlands while several smaller markets also cooled.
 
 ## Observable HTML
 
