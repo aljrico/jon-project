@@ -33,5 +33,6 @@ known_caveats:
   - This is not a mortgage affordability index.
 outputs:
   html: output/observable_replication.html
+  spain_eu_history_html: output/spain_eu_history.html
   png: output/eu_housing_salary_replication.png
   csv: data/housing_price_adjusted_by_salary_eu_2015_2024.csv

@@ -35,6 +35,7 @@ Use national currency (`NAC`) for salaries. Using euros introduces exchange-rate
 Rscript scripts/fetch_data.R
 Rscript scripts/plot_replication.R
 Rscript scripts/build_observable_html.R
+Rscript scripts/build_spain_eu_history_html.R
 ```
 
 Output:
@@ -42,3 +43,4 @@ Output:
 - `data/housing_price_adjusted_by_salary_eu_2015_2024.csv`
 - `output/eu_housing_salary_replication.png`
 - `output/observable_replication.html`
+- `output/spain_eu_history.html`
