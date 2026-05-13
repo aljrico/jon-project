@@ -23,6 +23,12 @@
 - National HPI data hides regional dispersion. In Spain especially, Madrid, Barcelona, and the Balearics are not well represented by a single national number.
 - Nominal salary growth does not mean real purchasing power improved. Consumer inflation can erase wage gains while housing still pulls away.
 
+## EU Contribution Screen
+
+- The 2022-2024 contribution screen uses 2024 EU27 HPI country weights from `prc_hpi_cow`. That matches the HPI numerator's aggregation method, not the salary denominator.
+- Do not call the weighted screen an exact decomposition of the EU adjusted ratio. It ranks countries by HPI-weighted pressure on the salary-adjusted gap.
+- Exact country decomposition of the denominator would require reconstructing Eurostat's `nama_10_fte` aggregate from wages and salaries, employee counts, and full-time adjustment ratios, including cross-currency aggregation choices.
+
 ## Source Mixing
 
 - If non-Eurostat data is mixed into the analysis, document the source, methodology, and comparability risk directly in the output notes.

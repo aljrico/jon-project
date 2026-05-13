@@ -24,6 +24,19 @@ sources:
     metadata_url: https://ec.europa.eu/eurostat/cache/metadata/en/nama_10_fte_esms.htm
     filters:
       unit: NAC
+  - name: Eurostat House price index country weights
+    dataset_id: prc_hpi_cow
+    url: https://ec.europa.eu/eurostat/databrowser/view/prc_hpi_cow/default/table?lang=en
+    metadata_url: https://ec.europa.eu/eurostat/cache/metadata/en/prc_hpi_inx_esms.htm
+    filters:
+      purchase: TOTAL
+      statinfo: COWEU27_2020
+      time: 2024
+derived_outputs:
+  eu_reversal_contribution_screen:
+    formula: (change_2024 - change_2022) * (hpi_weight_2024_pm / 1000)
+    weights_dataset_id: prc_hpi_cow
+    interpretation: HPI-weighted pressure on the salary-adjusted gap, not a full denominator decomposition
 known_caveats:
   - Eurostat nama_10_fte excludes the Netherlands; CBS has a different-methodology fallback.
   - Greece lacks the selected HPI series under current filters.
@@ -31,8 +44,10 @@ known_caveats:
   - Salary series must use national currency to avoid exchange-rate noise.
   - The salary measure is an average, not a median buyer income.
   - This is not a mortgage affordability index.
+  - The EU reversal screen uses HPI country weights and does not exactly decompose the salary denominator.
 outputs:
   html: output/observable_replication.html
   spain_eu_history_html: output/spain_eu_history.html
   png: output/eu_housing_salary_replication.png
   csv: data/housing_price_adjusted_by_salary_eu_2015_2024.csv
+  eu_reversal_contributions_csv: data/eu_hpi_weighted_reversal_contributions_2022_2024.csv
